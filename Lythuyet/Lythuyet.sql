@@ -1,123 +1,123 @@
 /*
 I. Nhập Dữ Liệu
     1. Nhập từ giá trị trực tiếp
-        INSERT INTO (table_name) 
-        VALUES (values...);
+        INSERT INTO (ten_bang) 
+        VALUES (cac_gia_tri...);
 
     2. Nhập từ một bảng khác
-        INSERT INTO (table_name)(columns) 
-        SELECT (columns_from_another_table)
-        FROM (another_table_name) 
-        WHERE /condition/;
+        INSERT INTO (ten_bang)(cac_cot) 
+        SELECT (cac_cot_tu_bang_khac)
+        FROM (ten_bang_khac) 
+        WHERE /dieu_kien/;
 
 II. Truy Xuất Dữ Liệu
-    SELECT (.) FROM (table_name);
+    SELECT (.) FROM (ten_bang);
     1. (.) = * : Tất cả các cột
-    2. (.) = (column_name),... : Các cột cụ thể
+    2. (.) = (ten_cot),... : Các cột cụ thể
 
 III. Tạo Bảng Mới
     1. Tạo bảng trống
-        CREATE TABLE (table_name)
+        CREATE TABLE (ten_bang)
         (
-            /code/
+            /ma_lenh/
         );
 
     2. Tạo bảng từ một bảng khác
-        CREATE TABLE (table_name) 
+        CREATE TABLE (ten_bang) 
         AS SELECT (.) 
-        FROM (another_table_name);
+        FROM (ten_bang_khac);
 
 IV. Sửa Đổi Bảng
     1. Thêm cột
-        ALTER TABLE (table_name) 
-        ADD COLUMN (new_column_name) (datatype) 
-        [DEFAULT (values)];
+        ALTER TABLE (ten_bang) 
+        ADD COLUMN (ten_cot_moi) (kieu_du_lieu) 
+        [DEFAULT (gia_tri)];
 
     2. Thay đổi kiểu dữ liệu
-        ALTER TABLE (table_name) 
-        ALTER COLUMN (column_name) TYPE (datatype);
+        ALTER TABLE (ten_bang) 
+        ALTER COLUMN (ten_cot) TYPE (kieu_du_lieu);
 
     3. Đổi tên cột
-        ALTER TABLE (table_name) 
-        RENAME (column_name) TO (new_name);
+        ALTER TABLE (ten_bang) 
+        RENAME (ten_cot) TO (ten_moi);
 
     4. Thêm ràng buộc
-        ALTER TABLE (table_name) 
+        ALTER TABLE (ten_bang) 
         ADD CONSTRAINT 
-            (constraint_name) (constraint_definition);
+            (ten_rang_buoc) (dinh_nghia_rang_buoc);
 
     5. Thiết lập NULL
-        ALTER TABLE (table_name) 
-        ALTER COLUMN (column_name) SET (type);
+        ALTER TABLE (ten_bang) 
+        ALTER COLUMN (ten_cot) SET (kieu_du_lieu);
 
 V. Ràng Buộc
     1. UNIQUE
-        ALTER TABLE (table_name) 
+        ALTER TABLE (ten_bang) 
         ADD CONSTRAINT 
-            unique_(column) UNIQUE ((column));
+            unique_(ten_cot) UNIQUE ((ten_cot));
 
     2. PRIMARY KEY
-        ALTER TABLE (table_name) 	
+        ALTER TABLE (ten_bang) 	
         ADD CONSTRAINT 
-            (column)_pk PRIMARY KEY((column));
+            (ten_cot)_pk PRIMARY KEY((ten_cot));
 
     3. FOREIGN KEY
         - Tạo bảng con với khóa ngoại
-            CREATE TABLE (child_table_name) (
-                c1 datatype,
-                c2 datatype REFERENCES (parent_table_name)(parent_column),
+            CREATE TABLE (ten_bang_con) (
+                cot1 kieu_du_lieu,
+                cot2 kieu_du_lieu REFERENCES (ten_bang_cha)(ten_cot_cha),
             );
 
         - Thêm khóa ngoại vào bảng con
-            ALTER TABLE (child_table_name)
+            ALTER TABLE (ten_bang_con)
             ADD CONSTRAINT 
-                (child_table_name)_fkey 
-            FOREIGN KEY (child_column) REFERENCES (parent_table_name)(parent_column);
+                (ten_bang_con)_fkey 
+            FOREIGN KEY (ten_cot_con) REFERENCES (ten_bang_cha)(ten_cot_cha);
 
     4. CHECK
         - Tạo bảng với ràng buộc CHECK
-            CREATE TABLE (table_name)
+            CREATE TABLE (ten_bang)
             (
-                column_name datatype CHECK (condition)
+                ten_cot kieu_du_lieu CHECK (dieu_kien)
             );
 
         - Thêm ràng buộc CHECK vào bảng
-            ALTER TABLE (table_name) 
+            ALTER TABLE (ten_bang) 
             ADD CONSTRAINT 
-                (constraint_name) CHECK (condition);
+                (ten_rang_buoc) CHECK (dieu_kien);
 
     5. Xóa ràng buộc
-        ALTER TABLE (table_name)		
-        DROP CONSTRAINT (constraint_name);
+        ALTER TABLE (ten_bang)		
+        DROP CONSTRAINT (ten_rang_buoc);
 
 VI. Cập Nhật Dữ Liệu
     1. Cập nhật bảng hiện tại
-        UPDATE (table_name)
-        SET column1 = value1,	
-            column2 = value2
-        WHERE (condition);
+        UPDATE (ten_bang)
+        SET cot1 = gia_tri1,	
+            cot2 = gia_tri2
+        WHERE (dieu_kien);
 
     2. Cập nhật từ một bảng khác
-        UPDATE (table1_name)
-        SET column_need_update = (table2_name).column_update
-        FROM (table2_name)
-        WHERE (condition);
+        UPDATE (ten_bang1)
+        SET cot_can_cap_nhat = (ten_bang2).cot_duoc_cap_nhat
+        FROM (ten_bang2)
+        WHERE (dieu_kien);
 
     3. Xóa cột
-        ALTER TABLE (table_name) 
-        DROP COLUMN (column_name) [IF EXISTS] [CASCADE];
+        ALTER TABLE (ten_bang) 
+        DROP COLUMN (ten_cot) [IF EXISTS] [CASCADE];
 
     4. Xóa bảng
-        DROP TABLE IF EXISTS (table_name);
+        DROP TABLE IF EXISTS (ten_bang);
 
 VII. Xóa Dữ Liệu
     1. Xóa tất cả dữ liệu của bảng
-        DELETE FROM (table_name);
-        TRUNCATE TABLE (table1_name), (table2_name); // Nhanh hơn DELETE và có thể thêm CASCADE để xóa các khóa ngoại liên quan.
+        DELETE FROM (ten_bang);
+        TRUNCATE TABLE (ten_bang1), (ten_bang2); // Nhanh hơn DELETE và có thể thêm CASCADE để xóa các khóa ngoại liên quan.
 
     2. Xóa theo điều kiện
-        DELETE FROM (table_name) 
-        WHERE (condition);
+        DELETE FROM (ten_bang) 
+        WHERE (dieu_kien);
 
 VIII. Chuẩn Hóa Dữ Liệu (Data Normalization)
     - Các khái niệm: Dư thừa dữ liệu, chèn dị thường, cập nhật dị thường, xóa dị thường.
@@ -128,100 +128,100 @@ VIII. Chuẩn Hóa Dữ Liệu (Data Normalization)
 
 IX. Câu Lệnh SELECT
     1. Tên bí danh
-        - Cho cột: SELECT (column_name) AS (alias_name) FROM (table_name);
-        - Cho bảng: SELECT (columns) FROM (table_name) AS (alias_name);
+        - Cho cột: SELECT (ten_cot) AS (ten_bi_danh) FROM (ten_bang);
+        - Cho bảng: SELECT (cac_cot) FROM (ten_bang) AS (ten_bi_danh);
 
     2. Chuyển đổi kiểu dữ liệu
-        expression::data_type;
+        bieu_thuc::kieu_du_lieu;
 
     3. Làm tròn
-        ROUND(value, n);
+        ROUND(gia_tri, so_chu_so);
 
     4. Sắp xếp
-        ORDER BY (column_name) [ASC | DESC];
+        ORDER BY (ten_cot) [ASC | DESC];
 
     5. SELECT DISTINCT: Lấy giá trị duy nhất
-        SELECT DISTINCT (column_name) FROM (table_name);
+        SELECT DISTINCT (ten_cot) FROM (ten_bang);
 
 X. Lọc Dữ Liệu
     1. Lọc với WHERE
-        SELECT * FROM (table_name) 
-        WHERE (condition);
+        SELECT * FROM (ten_bang) 
+        WHERE (dieu_kien);
 
     2. LIKE, NOT LIKE, SIMILAR TO, ILIKE
-        - LIKE '%pattern%' hoặc NOT LIKE '%pattern%'
-        - SIMILAR TO '(pattern1|pattern2)'
-        - ILIKE '%pattern%' (không phân biệt hoa/thường)
+        - LIKE '%mau%' hoặc NOT LIKE '%mau%'
+        - SIMILAR TO '(mau1|mau2)'
+        - ILIKE '%mau%' (không phân biệt hoa/thường)
 
     3. BETWEEN và NOT BETWEEN
-        SELECT * FROM (table_name) 
-        WHERE (column_name) BETWEEN (low_value) AND (high_value);
+        SELECT * FROM (ten_bang) 
+        WHERE (ten_cot) BETWEEN (gia_tri_thap) AND (gia_tri_cao);
 
     4. LIMIT
-        SELECT * FROM (table_name) 
+        SELECT * FROM (ten_bang) 
         LIMIT (n);
 
     5. OFFSET
-        SELECT * FROM (table_name) 
+        SELECT * FROM (ten_bang) 
         LIMIT (n) OFFSET (m);
 
     6. Kiểm tra NULL
-        (column_name) IS NULL hoặc (column_name) IS NOT NULL;
+        (ten_cot) IS NULL hoặc (ten_cot) IS NOT NULL;
 
 XI. Kết Hợp Bảng (JOIN)
     1. INNER JOIN
-        SELECT A.(column_name), B.(column_name)
-        FROM A INNER JOIN B ON (condition);
+        SELECT A.(ten_cot), B.(ten_cot)
+        FROM A INNER JOIN B ON (dieu_kien);
 
     2. LEFT JOIN
-        SELECT A.(column_name), B.(column_name)
-        FROM A LEFT JOIN B ON (condition);
+        SELECT A.(ten_cot), B.(ten_cot)
+        FROM A LEFT JOIN B ON (dieu_kien);
 
     3. FULL OUTER JOIN
-        SELECT * FROM A FULL OUTER JOIN B ON (condition);
+        SELECT * FROM A FULL OUTER JOIN B ON (dieu_kien);
 
     4. Tự liên kết (Self-Join)
-        SELECT a1.(column_name), a2.(column_name)
-        FROM A a1 INNER JOIN A a2 ON (condition);
+        SELECT a1.(ten_cot), a2.(ten_cot)
+        FROM A a1 INNER JOIN A a2 ON (dieu_kien);
 
 XII. Toán Học
     1. CASE
-        SELECT column, 
-            CASE WHEN condition THEN result
-            ELSE result END AS alias_name
-        FROM table_name;
+        SELECT cot, 
+            CASE WHEN dieu_kien THEN ket_qua
+            ELSE ket_qua END AS ten_bi_danh
+        FROM ten_bang;
 
     2. SUM
-        SUM(column_name);
+        SUM(ten_cot);
 
     3. MAX/MIN
-        MAX(column_name) hoặc MIN(column_name);
+        MAX(ten_cot) hoặc MIN(ten_cot);
 
     4. AVG
-        AVG(column_name);
+        AVG(ten_cot);
 
 XIII. Các Hàm Khác
     1. Rank
-        ROW_NUMBER() hoặc DENSE_RANK() OVER (ORDER BY column_name);
+        ROW_NUMBER() hoặc DENSE_RANK() OVER (ORDER BY ten_cot);
 
     2. DATEDIFF
-        DATEDIFF(date1, date2);
+        DATEDIFF(ngay1, ngay2);
 
     3. CONCAT
-        CONCAT(column1, column2) AS new_column;
+        CONCAT(cot1, cot2) AS cot_moi;
 
     4. UNION ALL
-        SELECT ... FROM table1_name UNION ALL SELECT ... FROM table2_name;
+        SELECT ... FROM ten_bang1 UNION ALL SELECT ... FROM ten_bang2;
 
     5. IF
-        IF(condition, true_result, false_result);
+        IF(dieu_kien, ket_qua_dung, ket_qua_sai);
 
     6. Định dạng ngày
-        DATE_FORMAT(date_column, '%d-%m-%Y');
+        DATE_FORMAT(ten_cot_ngay, '%d-%m-%Y');
 
     7. SUM với PARTITION
-        SUM(column_name) OVER (PARTITION BY column_name);
+        SUM(ten_cot) OVER (PARTITION BY ten_cot);
 
     8. GROUP_CONCAT
-        GROUP_CONCAT(DISTINCT column_name ORDER BY column_name ASC SEPARATOR ',');
+        GROUP_CONCAT(DISTINCT ten_cot ORDER BY ten_cot ASC SEPARATOR ',');
 */
